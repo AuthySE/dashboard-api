@@ -32,6 +32,22 @@ if(!dashboard){
 
 
 /**
+ * Set contact info and create a new application
+ *
+ * Request the integration key from Henry.
+ *
+ */
+// if(integration_key){
+//     dashboard.integration_key = integration_key;
+//     dashboard.email = 'josh@twilio.com';
+//     dashboard.country_code = '1';
+//     dashboard.phone = '8439011978';
+//     dashboard.createDashboardApplication('Happy App 2FA');
+// } else {
+//     console.log("Integration key is not set");
+// }
+
+/**
  * Example uploading the sidebar and main logos
  * The logos it will use are main.png and sidebar_logo.png in this directory
  */
@@ -59,33 +75,15 @@ if(!dashboard){
 // dashboard.updateAppDetails();
 
 
-/**
- * Set contact info and create a new application
- *
- * Request the integration key from Henry.
- *
- */
-if(integration_key){
-    dashboard.integration_key = integration_key;
-    dashboard.email = 'josh@twilio.com';
-    dashboard.country_code = '1';
-    dashboard.phone = '8439011978';
-    dashboard.createDashboardApplication('Happy App 2FA');
-} else {
-    console.log("Integration key is not set");
-}
-
 
 /**
  * Get JSON of application logo locations
- * TODO:  URL doesn't exist?!
- */
+ * */
 // dashboard.getApplicationLogos();
 
 
 /**
  * List users
- * TODO:  URL doesn't exist?!
  */
 // dashboard.listUsers();
 

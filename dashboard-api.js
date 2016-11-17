@@ -68,6 +68,24 @@ AuthyDashboard.prototype = {
     },
 
     /**
+     * Call the CURL command
+     * @param curl
+     */
+    callCurl: function (curl) {
+        if (this.DEBUG) {
+            console.log("cURL call:\n", curl);
+        }
+
+        exec(curl, (error, stdout, stderr) => {
+            console.log(`stdout: ${stdout}\n`);
+            console.log(`stderr: ${stderr}`);
+            if (error !== null) {
+                console.log(`exec error: ${error}`);
+            }
+        });
+    },
+
+    /**
      * Update both main and sidebar logos.
      */
     updateAssets: function () {
@@ -157,24 +175,6 @@ AuthyDashboard.prototype = {
     },
 
     /**
-     * Call the CURL command
-     * @param curl
-     */
-    callCurl: function (curl) {
-        if (this.DEBUG) {
-            console.log("cURL call:\n", curl);
-        }
-
-        exec(curl, (error, stdout, stderr) => {
-            console.log(`stdout: ${stdout}\n`);
-            console.log(`stderr: ${stderr}`);
-            if (error !== null) {
-                console.log(`exec error: ${error}`);
-            }
-        });
-    },
-
-    /**
      *
      * @param {!string} name
      */
@@ -195,18 +195,22 @@ AuthyDashboard.prototype = {
     },
 
     /**
-     * TODO: NOT WORKING Requested URL was not found. Please check http://docs.authy.com/ to see the valid URLs
+     * Documentation is incorrect.  This is a GET, not a POST request.
      */
     getApplicationLogos: function () {
         var url = "https://api.authy.com/dashboard/json/application/assets";
-        var method = "POST";
-        this.computeSig(url, method);
+        var method = "GET";
+
+        var params = {
+            app_api_key: this.app_api_key,
+            access_key: this.access_key
+        };
+
+        this.computeSig(url, method, params);
 
         var curl = 'curl -H "X-Authy-Signature: ' + this.computed_sig + '"'
             + ' -H "X-Authy-Signature-Nonce:' + this.nonce + '"'
-            + ' -d app_api_key="' + this.app_api_key + '"'
-            + ' -d access_key="' + this.access_key + '"'
-            + ' "' + url + '"';
+            + ' "' + url + "?app_api_key=" + this.app_api_key +'&access_key=' + this.access_key + '"';
 
         this.callCurl(curl);
 
@@ -215,20 +219,14 @@ AuthyDashboard.prototype = {
     listUsers: function () {
         var url = "https://api.authy.com/dashboard/json/application/users";
         var method = "GET";
-        var params = {
-            page: 0,
-            per_page: 10
-        };
 
-        this.computeSig(url, method, params);
+        this.computeSig(url, method);
         var curl = 'curl -H "X-Authy-Signature: ' + this.computed_sig + '"'
             + ' -H "X-Authy-Signature-Nonce:' + this.nonce + '"'
-            + ' -d app_api_key="' + this.app_api_key + '"'
-            + ' -d access_key="' + this.access_key + '"'
             + ' "' + url + "?app_api_key=" + this.app_api_key +'&access_key=' + this.access_key + '"';
 
         this.callCurl(curl);
 
-    },
+    }
 
 };
