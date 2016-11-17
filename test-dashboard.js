@@ -7,6 +7,7 @@ var app_api_key = process.env.DASHBOARD_APP_API_KEY;
 var access_key = process.env.DASHBOARD_ACCESS_KEY;
 var api_signing_key = process.env.DASHBOARD_API_SIGNING_KEY;
 var which_dashboard = process.env.DASHBOARD_WHICH_ONE;
+var integration_key = process.env.DASHBOARD_INTEGRATION_KEY;
 
 /**
  * Setting PROD to true calculate a unique nonce every time
@@ -34,13 +35,13 @@ if(!dashboard){
  * Example uploading the sidebar and main logos
  * The logos it will use are main.png and sidebar_logo.png in this directory
  */
-dashboard.updateAssets();
+// dashboard.updateAssets();
 
 
 /**
  * Example showing how to change the background color
  */
-dashboard.updateColors('#00ff00');
+// dashboard.updateColors('#00ff00');
 
 /**
  * Simple GET request for dashboard details.
@@ -60,10 +61,19 @@ dashboard.updateColors('#00ff00');
 
 /**
  * Set contact info and create a new application
- * TODO:  Need Integration key
+ *
+ * Request the integration key from Henry.
+ *
  */
-// dashboard.setContactInfo('josh@twilio.com', '1', '8439011978');
-// dashboard.createApplication();
+if(integration_key){
+    dashboard.integration_key = integration_key;
+    dashboard.email = 'josh@twilio.com';
+    dashboard.country_code = '1';
+    dashboard.phone = '8439011978';
+    dashboard.createDashboardApplication('Happy App 2FA');
+} else {
+    console.log("Integration key is not set");
+}
 
 
 /**
@@ -78,4 +88,6 @@ dashboard.updateColors('#00ff00');
  * TODO:  URL doesn't exist?!
  */
 // dashboard.listUsers();
+
+
 

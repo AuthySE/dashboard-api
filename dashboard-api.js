@@ -18,6 +18,10 @@ function AuthyDashboard(app_api_key, access_key, signing_key, options) {
     this.app_api_key = app_api_key;
     this.access_key = access_key;
     this.signing_key = signing_key;
+
+    // you need to make a request from dev to get this key
+    this.integration_key;
+
     this.nonce = options.PROD ? n() + "." + n() : 1234.4321;
     this.computed_sig;
 
@@ -170,22 +174,24 @@ AuthyDashboard.prototype = {
         });
     },
 
-    setContactInfo: function (email, country_code, phone) {
-        this.email = email;
-        this.country_code = country_code;
-        this.phone = phone;
-    },
+    /**
+     *
+     * @param {!string} name
+     */
+    createDashboardApplication: function (name) {
+        var appName = name || "My new App Name";
 
-    createDashboardApplication: function () {
-        var params = {
-            name: "My new App Name",
-            email: ""
-        };
-
-
-        var url = "https://api.authy.com/dashboard/json/application/update";
+        var url = "https://api.authy.com/dashboard/json/applications";
         var method = "POST";
-        this.computeSig(url, method, {name: name});
+        
+        var curl = 'curl -d name="' + appName + '"'
+            + ' -d phone_number="' + this.phone + '"'
+            + ' -d country_code="' + this.country_code + '"'
+            + ' -d email="' + this.email + '"'
+            + ' -d integration_api_key="' + this.integration_key + '"'
+            + ' "' + url + '"';
+
+        this.callCurl(curl);
     },
 
     /**
@@ -223,5 +229,6 @@ AuthyDashboard.prototype = {
 
         this.callCurl(curl);
 
-    }
+    },
+
 };
