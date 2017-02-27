@@ -1,3 +1,5 @@
+const util = require('util')
+
 /**
  * Use this code to test the dashboard API.
  * Uncomment specific calls below to test them.  Only test on a non-production sites.
@@ -16,12 +18,13 @@ var integration_key = process.env.DASHBOARD_INTEGRATION_KEY;
  */
 var options = {
     PROD: false,
-    DEBUG: true
+    DEBUG: false,
+    API_URL: 'https://staging-2.authy.com'
 };
 
 var dashboard = require('./dashboard-api.js')(app_api_key, access_key, api_signing_key, options);
 
-if(!dashboard){
+if (!dashboard) {
     console.log("You need to setup the API keys in demo.env then `source demo.env`");
     console.log("You can find these API keys in your Authy Dashboard under the API keys.");
     console.log("If the 3 keys are not present, you need to create a ticket requesting them to be enabled");
@@ -53,6 +56,8 @@ if(!dashboard){
  */
 // dashboard.updateAssets();
 
+// dashboard.updateJPGAssets();
+
 
 /**
  * Example showing how to change the background color
@@ -75,7 +80,6 @@ if(!dashboard){
 // dashboard.updateAppDetails();
 
 
-
 /**
  * Get JSON of application logo locations
  * */
@@ -88,4 +92,57 @@ if(!dashboard){
 // dashboard.listUsers();
 
 
+/**
+ * List webhook
+ */
+// dashboard.listWebhooks();
 
+/**
+ * Create webhook
+ *
+ * Below are the public events you can create webhooks for.
+ *
+ * account_recovery_approved
+ * account_recovery_canceled
+ * account_recovery_started
+ * custom_message_not_allowed
+ * device_registration_completed
+ * one_touch_request_responded
+ * phone_change_canceled
+ * phone_change_pin_sent
+ * phone_change_requested
+ * phone_verification_code_is_invalid
+ * phone_verification_code_is_valid
+ * phone_verification_failed
+ * phone_verification_not_found
+ * phone_verification_started
+ * suspended_account
+ * token_invalid
+ * token_verified
+ * too_many_code_verifications
+ * too_many_phone_verifications
+ * totp_token_sent
+ * user_added
+ * user_phone_changed
+ * user_remo
+ */
+
+var events = ['user_added'];
+var callback_url = 'https://authyse.ngrok.io/';
+var name = 'myhook2';
+// dashboard.createWebhooks(events, callback_url, name);
+
+/**
+ * Delete webhook
+ */
+var webhook_id = "WH_45007513-d222-4b5a-a89b-d23fcb67b559";  // should be a long string of stuff.
+// dashboard.deleteWebhook(webhook_id);
+
+/**
+ * The signing key should be available alongside your other webhook information when listing your webhooks.
+ */
+var secret = '';
+var message = '';
+// var decoded = dashboard.verifyJWTResponse(message, secret);
+//
+// console.log(util.inspect(decoded, false, null));

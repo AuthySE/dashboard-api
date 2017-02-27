@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "crypto": "0.0.3",
+    "jsonwebtoken": "^7.3.0",
     "node-libcurl": "^1.0.0",
+    "nonce": "^1.0.4",
     "qs": "^6.3.0"
   }
 }
