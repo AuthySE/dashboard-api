@@ -3,6 +3,8 @@ Use this simple NodeJS package to test the [Authy Dashboard API](http://docs.aut
 
 Before using this API, you'll need to ask `support@twilio.com` to enable your dashboard keys for Authy.  Send the App Id of the application you want enabled.
 
+In order to setup and test this kind of tooling from your local development, you'll want to use [Ngrok](http://ngrok.io) or something similar.
+
 ### Setup
 1. Clone this repo
 2. `npm install`
