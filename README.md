@@ -42,7 +42,7 @@ dashboard.listWebhooks();
     "service_id":"###",
     "url":"https://YOUR_SITE/API/WEBHOOK_ENDPOINT",
     "signing_key":"SIGNING_KEY",
-    "events":["user_added, josho"]
+    "events":["user_added"]
 }]}
 ```
 
