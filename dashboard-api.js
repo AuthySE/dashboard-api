@@ -104,6 +104,9 @@ AuthyDashboard.prototype = {
             console.log("cURL call:\n", curl);
         }
 
+        console.log("CURL COMMAND:");
+        console.log(curl);
+
         exec(curl, (error, stdout, stderr) => {
             console.log(`stdout: ${stdout}\n`);
             console.log(`stderr: ${stderr}`);
