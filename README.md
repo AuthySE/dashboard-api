@@ -1,4 +1,4 @@
-# Authy Dashboard API Example
+# Authy Dashboard and Webhook API Examples
 Use this simple NodeJS package to test the [Authy Dashboard API](http://docs.authy.com/dashboard.html).  
 
 Before using this API, you'll need to ask `support@twilio.com` to enable your dashboard keys for Authy.  Send the App Id of the application you want enabled.
@@ -26,7 +26,7 @@ This Dashboard code allows you to do a few things with the dashboard including:
 * Updates application details
 * Create, List, Delete Webhooks
 
-### Webhooks
+## Webhooks
 You can set a webhook to be called after a publically visible event.  You can create, delete, verify and list current webhooks.  Webhooks use a `POST` when responding.
 
 **Listing Webhooks:**
